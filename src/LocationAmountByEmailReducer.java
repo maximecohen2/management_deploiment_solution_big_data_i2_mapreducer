@@ -10,12 +10,10 @@ public class LocationAmountByEmailReducer extends Reducer<Text, IntWritable, Tex
         throws IOException, InterruptedException
     {
         long locationAmountSum = 0;
-        long locationAmountNum = 0;
-        
+
         for(IntWritable locationAmount : locationAmountList) {
             locationAmountSum += locationAmount.get();
-            locationAmountNum ++;
         }
-        context.write(email, new IntWritable((int)(locationAmountSum/locationAmountNum)));
+        context.write(email, new IntWritable((int)(locationAmountSum)));
     }
 }
