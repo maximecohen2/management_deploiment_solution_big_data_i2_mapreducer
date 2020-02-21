@@ -4,15 +4,15 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class FilmRentByRatingMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class FilmRentByRatingMapper extends Mapper<LongWritable, Text, Text, Text> {
 	@Override
-	protected void map(LongWritable linenumber, Text line, Mapper<LongWritable, Text, Text, IntWritable>.Context context) 
+	protected void map(LongWritable linenumber, Text line, Mapper<LongWritable, Text, Text, Text>.Context context) 
 			throws IOException, InterruptedException {
 		String[] fields = line.toString().split(";");
-		String[] names = fields[0].split(" ");
+		String movie = fields[17];
+		String rating = fields[24];
 		try {
-			int age = Integer.parseInt(fields[1]);
-			context.write(new Text(names[0]), new IntWritable(age));
+			context.write(new Text(rating), new Text(movie));
 		} catch (NumberFormatException e) {
 			context.getCounter("Error", e.getMessage()).increment(1);
 		}
