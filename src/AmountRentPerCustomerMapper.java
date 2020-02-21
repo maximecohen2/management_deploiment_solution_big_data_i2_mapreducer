@@ -13,9 +13,7 @@ public class AmountRentPerCustomerMapper extends Mapper<LongWritable, Text, Text
 		String[] fields = line.toString().split(";");
 		String email = fields[5].replaceAll("\"", "").toString();
 		try {
-			// int age = Integer.parseInt(fields[1]);
-			// context.write(new Text(names[0]), new IntWritable(age));
-			float amount = Float.parseFloat(fields[2]);
+			float amount = Float.parseFloat(fields[2].replaceAll("\"", "").toString());
 			context.write(new Text(email), new FloatWritable(amount));
 		} catch (NumberFormatException e) {
 			context.getCounter("Error", e.getMessage()).increment(1);

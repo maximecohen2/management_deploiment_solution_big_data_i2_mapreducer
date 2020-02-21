@@ -16,7 +16,7 @@ public class FirstNameYearMapper extends Mapper<LongWritable, Text, Text, IntWri
 			int age = Integer.parseInt(fields[1]);
 			context.write(new Text(names[0]), new IntWritable(age));
 		} catch (NumberFormatException e) {
-			context.getCounter("Error", e.getMessage()).increment(1);
+			context.getCounter("Error", "bad format").increment(1);
 		}
 		
 	}
