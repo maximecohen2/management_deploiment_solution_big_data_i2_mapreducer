@@ -40,3 +40,6 @@ Cliquez sur "OK" puis "Finish"
 ### Lancement de hadoop
 Afin de lancer le programe, exécutez la commande suivante :
 `hadoop jar <VotreJar.jar> -D mapred.reduce.task=10 /input /output`
+
+## Rendu
+Adresse du dépôt : https://github.com/maximecohen2/management_deploiment_solution_big_data_i2_mapreducer
