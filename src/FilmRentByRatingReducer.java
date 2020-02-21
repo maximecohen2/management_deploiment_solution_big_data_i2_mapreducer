@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -6,14 +7,13 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 public class FilmRentByRatingReducer extends Reducer<Text, Text, Text, IntWritable>{
 	@Override
-	protected void reduce(Text movie, Iterable<Text> ratingList, Reducer<Text, Text, Text, IntWritable>.Context context) 
+	protected void reduce(Text rating, Iterable<Text> filmList, Reducer<Text, Text, Text, IntWritable>.Context context) 
 			throws IOException, InterruptedException {
-		long ageSum = 0;
-		long movieNum = 0;
-		for (Text rating : ratingList) {
-			ageSum += age.get();
-			movieNum++;
+		long filmCounter = 0;
+		for (Iterator<Text> iterator = filmList.iterator(); iterator.hasNext();) {
+			iterator.next();
+			++filmCounter;
 		}
-		context.write(movie, new IntWritable((int)(ageSum/movieNum)));
+		context.write(rating, new IntWritable((int)filmCounter));
 	}
 }

@@ -1,7 +1,6 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -11,18 +10,17 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
-
-public class AgeAvgByNameMapReduceClient extends Configured implements Tool {
-
+public class FilmRentByRatingReduceClient extends Configured implements Tool {
+	
 	@Override
 	public int run(String[] args) throws Exception {
-		Job job = Job.getInstance(this.getConf(), "AgeAvgByFirstName");
+		Job job = Job.getInstance(this.getConf(), "FilmRentByRating");
 		
 		job.setJarByClass(this.getClass()); // Quel jar pour mapReduce
-		job.setMapperClass(FirstNameYearMapper.class); // Quelle class pour mapper
-		job.setReducerClass(AgeAvgByFirstNameReducer.class); // Quelle class pour reducer
+		job.setMapperClass(FilmRentByRatingMapper.class); // Quelle class pour mapper
+		job.setReducerClass(FilmRentByRatingReducer.class); // Quelle class pour reducer
 		job.setMapOutputKeyClass(Text.class); // Quelle type de sortie de mapper / Entrée du reducer pour clé
-		job.setMapOutputValueClass(IntWritable.class); // Quelle type de sortie de mapper / Entrée du reducer pour clé
+		job.setMapOutputValueClass(Text.class); // Quelle type de sortie de mapper / Entrée du reducer pour valeur
 		job.setInputFormatClass(TextInputFormat.class); // format d'entrée du mapper
 		job.setOutputFormatClass(TextOutputFormat.class); // format de sortie du reducer
 		FileInputFormat.addInputPath(job, new Path(args[0])); // Chemin des fichiers d'entrée
@@ -32,7 +30,7 @@ public class AgeAvgByNameMapReduceClient extends Configured implements Tool {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.exit(ToolRunner.run(new Configuration(), new AgeAvgByNameMapReduceClient(), args));
+		System.exit(ToolRunner.run(new Configuration(), new FilmRentByRatingReduceClient(), args));
 
 	}
 
